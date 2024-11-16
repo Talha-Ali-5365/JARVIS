@@ -2,7 +2,7 @@
 
 ## 🤖 Introduction
 
-JARVIS is a sophisticated AI assistant agent built using React and modern JavaScript technologies. It's designed to be a versatile and powerful tool that can handle various tasks including file operations, terminal commands, AI-powered conversations, web scraping, and internet searches. This agent combines multiple cutting-edge technologies to provide a comprehensive solution for both developers and end-users.
+JARVIS is a sophisticated AI assistant agent built using React and modern JavaScript technologies, leveraging the UpStreet SDK for streamlined agentic workflow. It's designed to be a versatile and powerful tool that can handle various tasks including file operations, terminal commands, AI-powered conversations, web scraping, internet searches, version control `Git` through seamless integration with Git, and controlling your PC to perform tasks as you like. This agent combines multiple cutting-edge technologies to provide a comprehensive solution for both developers and end-users.
 
 ## 🌟 Features Overview
 
@@ -11,21 +11,14 @@ JARVIS comes equipped with multiple powerful capabilities that make it a versati
 - File System Operations
 - Terminal Command Execution
 - AI-Powered Conversations (via Gemini)
+- Ask questions with images to Gemini
 - Web Scraping Capabilities
 - Internet Search Integration
 - File Encryption/Decryption
+- Version Control through Git
+- PC Control and Automation: execute tasks and control your computer as desired
 
-## 🛠️ Technical Stack
-
-- React
-- TypeScript/TSX
-- Google's Generative AI (Gemini)
-- Node.js File System API
-- Crypto Module
-- Tavily Search API
-- Web Scraping Integration
-
-## 📚 Detailed Component Documentation
+## 📚 Tools
 
 ### 1. File System Operations
 The file system module provides comprehensive file handling capabilities:
@@ -34,8 +27,10 @@ The file system module provides comprehensive file handling capabilities:
 - `readFile`: Reads content from specified files
 - `writeFile`: Creates or updates files with new content
 - `listFiles`: Displays all files in the current directory
-- `encryptFile`: Securely encrypts files using AES-256-CBC
+- `encryptFile`: Securely encrypts files using AES-256 (`Military grade Encryption`)
 - `decryptFile`: Decrypts previously encrypted files
+
+This tool allows JARVIS to interact with the file system, enabling it to read, write, and manage files as needed.
 
 ### 2. Terminal Command Execution
 Secure and controlled terminal command execution with built-in safety features:
@@ -45,6 +40,8 @@ Secure and controlled terminal command execution with built-in safety features:
 - Working directory context maintenance
 - Detailed output capture (stdout and stderr)
 
+This tool enables JARVIS to execute terminal commands in a secure and controlled environment, allowing it to perform tasks that require command-line interactions.
+
 ### 3. AI Conversation Module (Gemini Integration)
 Advanced AI conversation capabilities powered by Google's Gemini:
 
@@ -53,7 +50,15 @@ Advanced AI conversation capabilities powered by Google's Gemini:
 - Multi-modal interactions
 - Context-aware responses
 
-### 4. Web Scraping Capabilities
+This tool allows JARVIS to engage in AI-powered conversations using Google's Gemini, enabling it to understand and respond to user queries in a more intelligent and context-aware manner.
+
+### 4. Ask questions with images to Gemini
+This feature enables JARVIS to ask questions with images to Gemini, allowing it to analyze and understand visual data.
+
+#### Available Functions:
+- `askGeminiWithImage`: Asks Gemini a question with an image
+
+### 5. Web Scraping Capabilities
 Robust web scraping functionality:
 
 - URL content extraction
@@ -61,7 +66,9 @@ Robust web scraping functionality:
 - AI-powered content interpretation
 - Error handling and retry mechanisms
 
-### 5. Internet Search Integration
+This tool enables JARVIS to extract and analyze content from web pages, allowing it to gather information and answer user queries more effectively.
+
+### 6. Internet Search Integration
 Integrated web search capabilities via Tavily:
 
 - Real-time web searches
@@ -69,13 +76,29 @@ Integrated web search capabilities via Tavily:
 - Error handling
 - Rate limiting protection
 
-### 6. Security Features
-Built-in security measures:
+This tool allows JARVIS to perform web searches using Tavily, enabling it to find and retrieve relevant information from the internet.
 
-- AES-256-CBC encryption
-- Secure key management
-- Command execution safeguards
-- Environment variable protection
+### 7. File Encryption/Decryption
+This feature enables JARVIS to encrypt and decrypt files using AES-256, ensuring the secure storage and transmission of sensitive data.
+
+#### Available Functions:
+- `encryptFile`: Encrypts a file using AES-256
+- `decryptFile`: Decrypts a previously encrypted file
+
+### 8. Version Control through Git
+This feature enables JARVIS to interact with Git repositories, allowing it to perform version control tasks such as committing changes and pushing updates.
+
+#### Available Functions:
+- `terminal`: Executes Git commands through the terminal tool
+
+### 9. PC Control and Automation
+This feature enables JARVIS to execute tasks and control the computer as desired, allowing it to automate tasks and perform system-level interactions.
+
+#### Available Functions:
+- `terminal`: Executes system-level commands through the terminal tool
+
+## Version Control
+JARVIS uses the terminal tool for version control, allowing it to execute Git commands and track changes, collaborate with other developers, and perform other version control tasks.
 
 ## 🚀 Getting Started
 
@@ -99,48 +122,26 @@ cd agentX
 npm install
 ```
 
-3. Set up environment variables:
+3. Set up UpStreet SDK:
+```bash
+npm install -g usdk
+usdk login
+```
+A browser will open. Log into UpStreet with your preferred authentication provider.
+
+4. Set up environment variables:
 ```bash
 GOOGLE_API_KEY=your_gemini_api_key
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
-4. Start the development server:
+5. Chat using UpStreet SDK:
 ```bash
-npm start
+usdk chat
 ```
 
 ## 💡 Usage Examples
 
-### File Operations
-```typescript
-// Reading a file
-await fileActions.readFile('example.txt');
-
-// Writing to a file
-await fileActions.writeFile('output.txt', 'Hello, World!');
-
-// Encrypting a file
-await fileActions.encryptFile('sensitive.txt');
-```
-
-### AI Conversations
-```typescript
-// Text-based query
-await geminiActions.askQuestion('What is the weather like today?');
-
-// Image analysis
-await geminiActions.askQuestionWithImage('What's in this image?', 'image.png');
-```
-
-### Web Operations
-```typescript
-// Web scraping
-await scrapingActions.scrapeWebsite('Extract main content', 'https://example.com');
-
-// Web search
-await websearchActions.search('Latest AI developments');
-```
 
 ## 🔒 Security Considerations
 
@@ -150,15 +151,6 @@ await websearchActions.search('Latest AI developments');
 - API keys are protected through environment variables
 - Input validation is implemented throughout the system
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## 📝 License
 
@@ -168,13 +160,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Google Generative AI team for Gemini API
 - Tavily team for their search API
-- React Agents community
+- UpStreet AI for their Agentic framework.
 - All contributors and supporters
 
 ## 📞 Support
 
-For support, please open an issue in the GitHub repository or contact the maintenance team.
+For support, please open an issue in the GitHub repository.
 
 ---
 
-Made with ❤️ by the JARVIS Development Team
+Made by TALHA ALI
