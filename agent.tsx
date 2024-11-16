@@ -10,6 +10,7 @@ import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as crypto from 'crypto';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const FileSystemAgent = () => {
   const [currentDir, setCurrentDir] = useState(process.cwd());
@@ -119,6 +120,66 @@ const FileSystemAgent = () => {
     }
   };
 
+  const geminiActions = {
+    async askQuestion(prompt: string) {
+      try {
+        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" }); // Using gemini-pro as an example, you can switch to gemini-1.5-flash if needed
+        const result = await model.generateContent(prompt);
+        return result.response.text();
+      } catch (err) {
+        return `Error asking question to Gemini: ${err.message}`;
+      }
+    },
+
+    async askQuestionWithImage(prompt: string, imagePath: string) {
+      try {
+        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" }); // Using gemini-pro as an example, you can switch to gemini-1.5-flash if needed
+
+        const fullPath = path.resolve(currentDir, imagePath);
+        const image = {
+          inlineData: {
+            data: Buffer.from(await fs.readFile(fullPath)).toString("base64"),
+            mimeType: "image/png", // Adjust the MIME type based on the image file
+          },
+        };
+
+        const result = await model.generateContent([prompt, image]);
+        return result.response.text();
+      } catch (err) {
+        return `Error asking question with image to Gemini: ${err.message}`;
+      }
+    }
+  };
+  const scrapingActions = {
+    async scrapeWebsite(prompt: string, url: string) {
+      try {
+        const formattedUrl = url.replace(/^https?:\/\//, '');
+
+        const response = await fetch(`https://r.jina.ai/${formattedUrl}`, {
+          method: 'GET',
+          headers: {
+            "Authorization": "Bearer jina_20caec9da7fb43d882955fca95d1df22hltYu-ggHctxm_ArG-KRw3e2wMYe"
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to scrape the website: ${response.statusText}`);
+        }
+
+        const scrapedContent = await response.text();
+        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const combinedPrompt = `Based on the following scraped content from ${url}:\n\n${scrapedContent}\n\nAnswer the following question:\n${prompt}`;
+        const result = await model.generateContent(combinedPrompt);
+        return result.response.text();
+      } catch (err) {
+        return `Error scraping website: ${err.message}`;
+      }
+    }
+  };
+
   return (
     <>
       <Prompt>
@@ -129,7 +190,10 @@ const FileSystemAgent = () => {
         - Execute terminal commands using the terminal action
         - Encrypt files using the encryptFile action
         - Decrypt files using the decryptFile action
-        
+        - Ask questions to Gemini using the askGemini action
+        - Ask questions with images to Gemini using the askGeminiWithImage action
+        - Scrape a website, get the content and then answer the user question using the scrapeWebsite action
+
         Current working directory is: {currentDir}
         
         When using these actions, provide helpful feedback about what you're doing.
@@ -143,6 +207,7 @@ const FileSystemAgent = () => {
         schema={z.object({
           filepath: z.string(),
         })}
+        examples={["readFile('example.txt')"]}
         handler={async (e) => {
           const filepath = e.data.message.args.filepath;
           const content = await fileActions.readFile(filepath);
@@ -157,6 +222,7 @@ const FileSystemAgent = () => {
           filepath: z.string(),
           content: z.string(),
         })}
+        examples={["writeFile('example.txt', 'Hello, world!')"]}
         handler={async (e) => {
           const { filepath, content } = e.data.message.args;
           const result = await fileActions.writeFile(filepath, content);
@@ -168,6 +234,7 @@ const FileSystemAgent = () => {
         name="listFiles"
         description="List files in current directory"
         schema={z.object({})}
+        examples={["listFiles()"]}
         handler={async (e) => {
           const files = await fileActions.listFiles();
           e.data.agent.say(`Files in directory:\n${files}`);
@@ -180,6 +247,7 @@ const FileSystemAgent = () => {
         schema={z.object({
           command: z.string(),
         })}
+        examples={["terminal('ls -la')"]}
         handler={async (e) => {
           const { command } = e.data.message.args;
           const result = await terminalActions.executeCommand(command);
@@ -193,6 +261,7 @@ const FileSystemAgent = () => {
         schema={z.object({
           filepath: z.string(),
         })}
+        examples={["encryptFile('example.txt')"]}
         handler={async (e) => {
           const filepath = e.data.message.args.filepath;
           const result = await fileActions.encryptFile(filepath);
@@ -206,10 +275,55 @@ const FileSystemAgent = () => {
         schema={z.object({
           filepath: z.string(),
         })}
+        examples={["decryptFile('example.txt.enc')"]}
         handler={async (e) => {
           const filepath = e.data.message.args.filepath;
           const result = await fileActions.decryptFile(filepath);
           e.data.agent.say(result);
+        }}
+      />
+
+      <Action
+        name="askGemini"
+        description="Ask a question to Gemini"
+        schema={z.object({
+          prompt: z.string(),
+        })}
+        examples={["askGemini('What is the capital of France?')"]}
+        handler={async (e) => {
+          const { prompt } = e.data.message.args;
+          const result = await geminiActions.askQuestion(prompt);
+          e.data.agent.say(`Answer from Gemini:\n${result}`);
+        }}
+      />
+
+      <Action
+        name="askGeminiWithImage"
+        description="Ask a question to Gemini with an image"
+        schema={z.object({
+          prompt: z.string(),
+          imagePath: z.string(),
+        })}
+        examples={["askGeminiWithImage('Describe this image.', 'image.png')"]}
+        handler={async (e) => {
+          const { prompt, imagePath } = e.data.message.args;
+          const result = await geminiActions.askQuestionWithImage(prompt, imagePath);
+          e.data.agent.say(`Answer from Gemini:\n${result}`);
+        }}
+      />
+
+      <Action
+        name="scrapeWebsite"
+        description="Scrape a website and get the content"
+        schema={z.object({
+          prompt: z.string(),
+          url: z.string(),
+        })}
+        examples={["scrapeWebsite('What is the main topic of this article?', 'https://example.com')"]}
+        handler={async (e) => {
+          const { prompt, url } = e.data.message.args;
+          const result = await scrapingActions.scrapeWebsite(prompt, url);
+          e.data.agent.say(`Answer: \n${result}`);
         }}
       />
     </>
