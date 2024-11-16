@@ -18,19 +18,37 @@ JARVIS comes equipped with multiple powerful capabilities that make it a versati
 - Version Control through Git
 - PC Control and Automation: execute tasks and control your computer as desired
 
-## 📚 Tools
+## 📚 Features & Tools
 
 ### 1. File System Operations
 The file system module provides comprehensive file handling capabilities:
 
-![File System Operations](./images/file_read.png)
-![File System Operations](./images/file_write.png)
+![File Read](./images/file_read.png)
 
-#### Available Functions:
 - `readFile`: Reads content from specified files
+
+![File Write](./images/file_write.png)
+
 - `writeFile`: Creates or updates files with new content
+
+![List Files](./images/list_files.png)
+
 - `listFiles`: Displays all files in the current directory
+
+![Encrypt File](./images/encryption_decryption.png)
+
 - `encryptFile`: Securely encrypts files using AES-256 (`Military grade Encryption`)
+
+![File Content Before Encryption](./images/file_content_before_encryption.png)
+
+- Example of file content before encryption
+
+![File Content After Encryption](./images/file_content_after_encryption.png)
+
+- Example of file content after encryption
+
+![Decrypt File](./images/encryption_decryption.png)
+
 - `decryptFile`: Decrypts previously encrypted files
 
 This tool allows JARVIS to interact with the file system, enabling it to read, write, and manage files as needed.
@@ -50,9 +68,12 @@ This tool enables JARVIS to execute terminal commands in a secure and controlled
 ### 3. AI Conversation Module (Gemini Integration)
 Advanced AI conversation capabilities powered by Google's Gemini:
 
-![AI Conversation Module](./images/chat_with_image.png)
+![Simple Gemini Call](./images/simple_gemini_call.png)
 
 - Text-based conversations
+
+![Gemini Chat with Image](./images/gemini_chat_with_image.png)
+
 - Image analysis and processing
 - Multi-modal interactions
 - Context-aware responses
@@ -62,7 +83,7 @@ This tool allows JARVIS to engage in AI-powered conversations using Google's Gem
 ### 4. Ask questions with images to Gemini
 This feature enables JARVIS to ask questions with images to Gemini, allowing it to analyze and understand visual data.
 
-![Ask Gemini with Image](./images/chat_with_image.png)
+![Gemini Chat with Image](./images/gemini_chat_with_image.png)
 
 #### Available Functions:
 - `askGeminiWithImage`: Asks Gemini a question with an image
@@ -94,10 +115,12 @@ This tool allows JARVIS to perform web searches using Tavily, enabling it to fin
 ### 7. File Encryption/Decryption
 This feature enables JARVIS to encrypt and decrypt files using AES-256, ensuring the secure storage and transmission of sensitive data.
 
-![File Encryption/Decryption](./images/encryption_decryption.png)
+![Encrypt File](./images/encryption_decryption.png)
 
-#### Available Functions:
 - `encryptFile`: Encrypts a file using AES-256
+
+![Decrypt File](./images/encryption_decryption.png)
+
 - `decryptFile`: Decrypts a previously encrypted file
 
 ### 8. Version Control through Git
