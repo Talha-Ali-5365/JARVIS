@@ -11,6 +11,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as crypto from 'crypto';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { tavily } from '@tavily/core';
 
 const FileSystemAgent = () => {
   const [currentDir, setCurrentDir] = useState(process.cwd());
@@ -180,21 +181,35 @@ const FileSystemAgent = () => {
     }
   };
 
+  const websearchActions = {
+    async search(query: string) {
+      try {
+        const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY }); // Initialize Tavily client
+        const response = await tvly.search(query); // Perform search
+        return response;
+      } catch (err) {
+        return `Error performing web search: ${err.message}`;
+      }
+    }
+  };
+
   return (
     <>
       <Prompt>
-        You are a file system assistant. You can:
-        - Read files using the readFile action
-        - Write files using the writeFile action
-        - List directory contents using the listFiles action
-        - Execute terminal commands using the terminal action
-        - Encrypt files using the encryptFile action
-        - Decrypt files using the decryptFile action
-        - Ask questions to Gemini using the askGemini action
-        - Ask questions with images to Gemini using the askGeminiWithImage action
-        - Scrape a website, get the content and then answer the user question using the scrapeWebsite action
-
+        You are intelligent AI assistant named JARVIS. You can:
+        - Read files using the readFile action.
+        - Write files using the writeFile action.
+        - List directory contents using the listFiles action.
+        - Execute terminal commands using the terminal action.
+        - Encrypt files using the encryptFile action.
+        - Decrypt files using the decryptFile action.
+        - Call Google's Gemini model using the askGemini action (ONLY USE WHEN USER ASK EXPLICITLY FOR GEMINI MODEL).
+        - Ask questions with images to Gemini using the askGeminiWithImage action.
+        - Scrape a website, get the content and then answer the user question using the scrapeWebsite action.
+        - Perform web searches using the websearch action. Use this to answer any type of query from internet.
+        
         Current working directory is: {currentDir}
+        Current year is 2024.
         
         When using these actions, provide helpful feedback about what you're doing.
         Remember to use terminal commands responsibly and safely.
@@ -324,6 +339,22 @@ const FileSystemAgent = () => {
           const { prompt, url } = e.data.message.args;
           const result = await scrapingActions.scrapeWebsite(prompt, url);
           e.data.agent.say(`Answer: \n${result}`);
+        }}
+      />
+
+      <Action
+        name="websearch"
+        description="Perform a web search"
+        schema={z.object({
+          query: z.string(),
+        })}
+        examples={["websearch('What is the capital of France?')"]}
+        handler={async (e) => {
+          const { query } = e.data.message.args;
+          const result = await websearchActions.search(query);
+          const temp = await e.data.agent.complete([{ content: `query: "${query}":\n Context: ${JSON.stringify(result, null, 2)}`, role: 'assistant' }]);
+          e.data.agent.say(`${temp.content}`);
+          // e.data.agent.say(`Search results for "${query}":\n${JSON.stringify(result, null, 2)}`);
         }}
       />
     </>
