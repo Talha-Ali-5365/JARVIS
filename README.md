@@ -23,6 +23,8 @@ JARVIS comes equipped with multiple powerful capabilities that make it a versati
 ### 1. File System Operations
 The file system module provides comprehensive file handling capabilities:
 
+![File System Operations](images/file_system_operations.png)
+
 #### Available Functions:
 - `readFile`: Reads content from specified files
 - `writeFile`: Creates or updates files with new content
@@ -35,6 +37,8 @@ This tool allows JARVIS to interact with the file system, enabling it to read, w
 ### 2. Terminal Command Execution
 Secure and controlled terminal command execution with built-in safety features:
 
+![Terminal Command Execution](images/terminal_command_execution.png)
+
 - Command execution with timeout protection
 - Blocked dangerous commands for security
 - Working directory context maintenance
@@ -44,6 +48,8 @@ This tool enables JARVIS to execute terminal commands in a secure and controlled
 
 ### 3. AI Conversation Module (Gemini Integration)
 Advanced AI conversation capabilities powered by Google's Gemini:
+
+![AI Conversation Module](images/ai_conversation_module.png)
 
 - Text-based conversations
 - Image analysis and processing
@@ -55,11 +61,15 @@ This tool allows JARVIS to engage in AI-powered conversations using Google's Gem
 ### 4. Ask questions with images to Gemini
 This feature enables JARVIS to ask questions with images to Gemini, allowing it to analyze and understand visual data.
 
+![Ask Gemini with Image](images/ask_gemini_with_image.png)
+
 #### Available Functions:
 - `askGeminiWithImage`: Asks Gemini a question with an image
 
 ### 5. Web Scraping Capabilities
 Robust web scraping functionality:
+
+![Web Scraping Capabilities](images/web_scraping_capabilities.png)
 
 - URL content extraction
 - Content analysis
@@ -71,6 +81,8 @@ This tool enables JARVIS to extract and analyze content from web pages, allowing
 ### 6. Internet Search Integration
 Integrated web search capabilities via Tavily:
 
+![Internet Search Integration](images/internet_search_integration.png)
+
 - Real-time web searches
 - Relevant result filtering
 - Error handling
@@ -81,6 +93,8 @@ This tool allows JARVIS to perform web searches using Tavily, enabling it to fin
 ### 7. File Encryption/Decryption
 This feature enables JARVIS to encrypt and decrypt files using AES-256, ensuring the secure storage and transmission of sensitive data.
 
+![File Encryption/Decryption](images/file_encryption_decryption.png)
+
 #### Available Functions:
 - `encryptFile`: Encrypts a file using AES-256
 - `decryptFile`: Decrypts a previously encrypted file
@@ -88,11 +102,15 @@ This feature enables JARVIS to encrypt and decrypt files using AES-256, ensuring
 ### 8. Version Control through Git
 This feature enables JARVIS to interact with Git repositories, allowing it to perform version control tasks such as committing changes and pushing updates.
 
+![Version Control through Git](images/version_control_through_git.png)
+
 #### Available Functions:
 - `terminal`: Executes Git commands through the terminal tool
 
 ### 9. PC Control and Automation
 This feature enables JARVIS to execute tasks and control the computer as desired, allowing it to automate tasks and perform system-level interactions.
+
+![PC Control and Automation](images/pc_control_and_automation.png)
 
 #### Available Functions:
 - `terminal`: Executes system-level commands through the terminal tool
