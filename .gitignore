@@ -23,6 +23,12 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+jest.config.mjs
+jest.setup.mjs
+package-lock.json
+package.json
+tsconfig.json
+wrangler.toml
 node_modules
 packages
 packages/react-devtools-core/dist
