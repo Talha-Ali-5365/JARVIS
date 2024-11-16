@@ -155,7 +155,7 @@ JARVIS uses the terminal tool for version control, allowing it to execute Git co
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/Talha-Ali-5365/JARVIS.git
 ```
 
 2. Set up UpStreet SDK:
