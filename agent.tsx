@@ -9,6 +9,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import * as crypto from 'crypto';
 
 const FileSystemAgent = () => {
   const [currentDir, setCurrentDir] = useState(process.cwd());
@@ -41,6 +42,55 @@ const FileSystemAgent = () => {
         return files.join('\n');
       } catch (err) {
         return `Error listing files: ${err.message}`;
+      }
+    },
+
+    async encryptFile(filepath: string) {
+      try {
+        const fullPath = path.resolve(currentDir, filepath);
+        const fileContent = await fs.readFile(fullPath, 'utf-8');
+
+        const algorithm = 'aes-256-cbc';
+        const key = crypto.randomBytes(32);
+        const iv = crypto.randomBytes(16);
+
+        const cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+        let encrypted = cipher.update(fileContent, 'utf-8', 'hex');
+        encrypted += cipher.final('hex');
+
+        const encryptedFilePath = path.resolve(currentDir, `${path.basename(filepath, path.extname(filepath))}.enc`);
+        await fs.writeFile(encryptedFilePath, encrypted);
+
+        const keyFilePath = path.resolve(currentDir, 'text.keys');
+        await fs.writeFile(keyFilePath, `${key.toString('hex')}\n${iv.toString('hex')}`);
+
+        return `File encrypted and saved as ${encryptedFilePath}. Keys saved in text.keys`;
+      } catch (err) {
+        return `Error encrypting file: ${err.message}`;
+      }
+    },
+
+    async decryptFile(filepath: string) {
+      try {
+        const fullPath = path.resolve(currentDir, filepath);
+        const encryptedContent = await fs.readFile(fullPath, 'utf-8');
+
+        const keyFilePath = path.resolve(currentDir, 'text.keys');
+        const [keyHex, ivHex] = (await fs.readFile(keyFilePath, 'utf-8')).split('\n');
+        const key = Buffer.from(keyHex, 'hex');
+        const iv = Buffer.from(ivHex, 'hex');
+
+        const algorithm = 'aes-256-cbc';
+        const decipher = crypto.createDecipheriv(algorithm, key, iv);
+        let decrypted = decipher.update(encryptedContent, 'hex', 'utf-8');
+        decrypted += decipher.final('utf-8');
+
+        const decryptedFilePath = path.resolve(currentDir, `${path.basename(filepath, path.extname(filepath))}.dec`);
+        await fs.writeFile(decryptedFilePath, decrypted);
+
+        return `File decrypted and saved as ${decryptedFilePath}`;
+      } catch (err) {
+        return `Error decrypting file: ${err.message}`;
       }
     }
   };
@@ -77,6 +127,8 @@ const FileSystemAgent = () => {
         - Write files using the writeFile action
         - List directory contents using the listFiles action
         - Execute terminal commands using the terminal action
+        - Encrypt files using the encryptFile action
+        - Decrypt files using the decryptFile action
         
         Current working directory is: {currentDir}
         
@@ -132,6 +184,32 @@ const FileSystemAgent = () => {
           const { command } = e.data.message.args;
           const result = await terminalActions.executeCommand(command);
           e.data.agent.say(`Executing: ${command}\n\n${result}`);
+        }}
+      />
+
+      <Action
+        name="encryptFile"
+        description="Encrypt a file"
+        schema={z.object({
+          filepath: z.string(),
+        })}
+        handler={async (e) => {
+          const filepath = e.data.message.args.filepath;
+          const result = await fileActions.encryptFile(filepath);
+          e.data.agent.say(result);
+        }}
+      />
+
+      <Action
+        name="decryptFile"
+        description="Decrypt a file"
+        schema={z.object({
+          filepath: z.string(),
+        })}
+        handler={async (e) => {
+          const filepath = e.data.message.args.filepath;
+          const result = await fileActions.decryptFile(filepath);
+          e.data.agent.say(result);
         }}
       />
     </>
