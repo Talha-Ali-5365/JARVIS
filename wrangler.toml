@@ -1,0 +1,21 @@
+name = "user-agent-679e2069-fe4e-41a5-91ad-c53461adfc00"
+main = "packages/upstreet-agent/main.jsx"
+compatibility_date = "2023-11-21"
+node_compat = true
+workers_dev = true
+
+[[durable_objects.bindings]]
+name = "AGENT"
+class_name = "DurableObject"
+
+[[migrations]]
+tag = "v1"
+new_classes = [ "DurableObject" ]
+
+[vars]
+AGENT_JSON = '{"id":"679e2069-fe4e-41a5-91ad-c53461adfc00","ownerId":"652351d6-ee2f-444a-9ce3-ce41a9f4955e","address":"0xce76af1369b3f6744ce4822f8808d202b03c3752","stripeConnectAccountId":"","name":"AI Agent","description":"Created by the AI Agent SDK","bio":"A cool person","model":"openai:gpt-4o-2024-08-06","startUrl":"https://user-agent-679e2069-fe4e-41a5-91ad-c53461adfc00.isekaichat.workers.dev","previewUrl":"","homespaceUrl":"","avatarUrl":"","voiceEndpoint":"elevenlabs:scillia:kNBPK9DILaezWWUSHpF9","voicePack":"ShiShi voice pack","capabilities":[],"version":"0.0.92"}'
+WALLET_MNEMONIC = "wink pepper above desk only garage double dignity moon phone wrist guitar"
+AGENT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJleHAiOjQ4ODUyNDkzMzMsImlkIjoiNjc5ZTIwNjktZmU0ZS00MWE1LTkxYWQtYzUzNDYxYWRmYzAwIiwidHlwZSI6ImFnZW50IiwidXNlcklkIjoiNjUyMzUxZDYtZWUyZi00NDRhLTljZTMtY2U0MWE5ZjQ5NTVlIiwiYWdlbnRJZCI6IjY3OWUyMDY5LWZlNGUtNDFhNS05MWFkLWM1MzQ2MWFkZmMwMCIsImlhdCI6MTczMTY0OTMzM30.lVkvig3SIFWXutM9uvybi_44lRTmKO139z8fkK-sbuc"
+SUPABASE_URL = "https://friddlbqibjnxjoxeocc.supabase.co"
+SUPABASE_PUBLIC_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZyaWRkbGJxaWJqbnhqb3hlb2NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDM2NjE3NDIsImV4cCI6MjAxOTIzNzc0Mn0.jnvk5X27yFTcJ6jsCkuXOog1ZN825md4clvWuGQ8DMI"
+WORKER_ENV = "production"
