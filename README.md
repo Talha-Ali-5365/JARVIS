@@ -161,7 +161,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Google Generative AI team for Gemini API
 - Tavily team for their search API
 - UpStreet AI for their Agentic framework.
-- All contributors and supporters
 
 ## 📞 Support
 
