@@ -156,20 +156,22 @@ JARVIS uses the terminal tool for version control, allowing it to execute Git co
 1. Clone the repository:
 ```bash
 git clone [repository-url]
-cd agentX
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up UpStreet SDK:
+2. Set up UpStreet SDK:
 ```bash
 npm install -g usdk
 usdk login
+usdk create JARVIS -y
 ```
-A browser will open. Log into UpStreet with your preferred authentication provider.
+
+3. Install dependencies:
+```bash
+cd JARVIS
+npm install @google/generative-ai
+npm install @tavily/core
+npm install axios
+```
 
 4. Set up environment variables:
 ```bash
