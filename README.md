@@ -130,7 +130,7 @@ This feature enables JARVIS to encrypt and decrypt files using AES-256, ensuring
 ### 8. Version Control through Git
 This feature enables JARVIS to interact with Git repositories, allowing it to perform version control tasks such as committing changes and pushing updates.
 
-![Version Control through Git](./images/terminal_tool.png)
+![Version Control through Git](./images/git.png)
 
 #### Available Functions:
 - `terminal`: Executes Git commands through the terminal tool
