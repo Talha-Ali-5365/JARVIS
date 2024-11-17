@@ -2,7 +2,7 @@
 
 ## 🎥 Video Demonstration
 
-[![Video Demonstration](./images/video.mp4)](images/video.mp4)
+[![Video Demonstration](./images/demo.mp4)](images/demo.mp4)
 
 ## 🤖 Introduction
 
