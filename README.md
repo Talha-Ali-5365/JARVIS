@@ -168,7 +168,9 @@ npm install -g usdk
 usdk login
 usdk create JARVIS -y
 ```
+
 `agent.tsx file will be created`
+
 3. Install dependencies:
 ```bash
 cd JARVIS
@@ -178,6 +180,7 @@ npm install axios
 ```
 
 `NOTE: REPLACE THE agent.tsx file with one in repo`
+
 4. Set up environment variables:
 ```bash
 GOOGLE_API_KEY=your_gemini_api_key
