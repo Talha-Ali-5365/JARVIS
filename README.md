@@ -1,5 +1,9 @@
 # JARVIS - Advanced AI Assistant Agent
 
+## 🎥 Video Demonstration
+
+[![Video Demonstration](./images/video.mp4)](images/video.mp4)
+
 ## 🤖 Introduction
 
 JARVIS is a sophisticated AI assistant agent built using React and modern JavaScript technologies, leveraging the UpStreet SDK for streamlined agentic workflow. It's designed to be a versatile and powerful tool that can handle various tasks including file operations, terminal commands, AI-powered conversations, web scraping, internet searches, version control `Git` through seamless integration with Git, and controlling your PC to perform tasks as you like. This agent combines multiple cutting-edge technologies to provide a comprehensive solution for both developers and end-users.

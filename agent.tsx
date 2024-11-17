@@ -206,8 +206,9 @@ const FileSystemAgent = () => {
         - Call Google's Gemini model using the askGemini action (ONLY USE WHEN USER ASK EXPLICITLY FOR GEMINI MODEL).
         - Ask questions with images to Gemini using the askGeminiWithImage action.
         - Scrape a website, get the content and then answer the user question using the scrapeWebsite action.
-        - Perform web searches using the websearch action. Use this to answer any type of query from internet.
+        - To answer any type of query that you do not have context perform web searches using the websearch action. Use this to answer any type of query from internet.USE THIS WHEN YOU DO NOT HAVE THE ANSWER.
         
+        for opening any app use terminal action e.g:- to open sublime use `terminal('subl')` 
         Current working directory is: {currentDir}
         Current year is 2024.
         
