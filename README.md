@@ -2,7 +2,7 @@
 
 ## 🎥 Video Demonstration
 
-[![Video Demonstration](./images/demo.mp4)](images/demo.mp4)
+[![Video Demonstration](https://youtu.be/__T7WH5PNdc)](https://youtu.be/__T7WH5PNdc)
 
 ## 🤖 Introduction
 
