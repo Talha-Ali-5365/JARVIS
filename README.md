@@ -149,7 +149,7 @@ JARVIS uses the terminal tool for version control, allowing it to execute Git co
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v14 or higher)
+- Node.js (v22 or higher)
 - React development environment
 - Required API keys:
   - Google API Key (for Gemini)
@@ -202,11 +202,6 @@ usdk chat
 - Encryption uses industry-standard AES-256-CBC
 - API keys are protected through environment variables
 - Input validation is implemented throughout the system
-
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
