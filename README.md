@@ -154,6 +154,7 @@ JARVIS uses the terminal tool for version control, allowing it to execute Git co
 - Required API keys:
   - Google API Key (for Gemini)
   - Tavily API Key (for web searches)
+  - JINA AI Reader API key (for web scraping)
 
 ### Installation
 
@@ -185,6 +186,7 @@ npm install axios
 ```bash
 GOOGLE_API_KEY=your_gemini_api_key
 TAVILY_API_KEY=your_tavily_api_key
+JINA_API_KEY=your_jina_api_key
 ```
 
 5. Chat using UpStreet SDK:
@@ -216,3 +218,7 @@ For support, please open an issue in the GitHub repository.
 ---
 
 Made by TALHA ALI
+
+
+
+

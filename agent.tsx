@@ -161,7 +161,7 @@ const FileSystemAgent = () => {
         const response = await fetch(`https://r.jina.ai/${formattedUrl}`, {
           method: 'GET',
           headers: {
-            "Authorization": "Bearer jina_20caec9da7fb43d882955fca95d1df22hltYu-ggHctxm_ArG-KRw3e2wMYe"
+            "Authorization": `Bearer ${process.env.JINA_API_KEY}`
           },
         });
 
