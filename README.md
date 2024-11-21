@@ -193,10 +193,6 @@ JINA_API_KEY=your_jina_api_key
 ```bash
 usdk chat
 ```
-
-## 💡 Usage Examples
-
-
 ## 🔒 Security Considerations
 
 - All file operations are performed with proper error handling
@@ -204,6 +200,10 @@ usdk chat
 - Encryption uses industry-standard AES-256-CBC
 - API keys are protected through environment variables
 - Input validation is implemented throughout the system
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
